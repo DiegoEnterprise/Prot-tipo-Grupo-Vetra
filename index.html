@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeRoute AI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>🚛 SafeRoute AI</h1>
+    <p>Prevenção Inteligente de Bloqueios Indevidos</p>
+</header>
+
+<section class="dashboard">
+
+    <div class="card">
+        <h2>Caminhões em Operação</h2>
+        <span id="caminhoes">128</span>
+    </div>
+
+    <div class="card">
+        <h2>Rotas Monitoradas</h2>
+        <span id="rotas">94</span>
+    </div>
+
+    <div class="card">
+        <h2>Bloqueios Evitados</h2>
+        <span id="evitados">37</span>
+    </div>
+
+    <div class="card">
+        <h2>Precisão da IA</h2>
+        <span>96%</span>
+    </div>
+
+</section>
+
+<section class="monitoramento">
+
+    <h2>Monitoramento em Tempo Real</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Caminhão</th>
+                <th>Localização</th>
+                <th>Status</th>
+                <th>Risco IA</th>
+            </tr>
+        </thead>
+
+        <tbody id="tabelaCaminhoes">
+            <tr>
+                <td>TRK-001</td>
+                <td>Campinas-SP</td>
+                <td class="ok">Normal</td>
+                <td>12%</td>
+            </tr>
+
+            <tr>
+                <td>TRK-002</td>
+                <td>Jundiaí-SP</td>
+                <td class="alerta">Análise</td>
+                <td>67%</td>
+            </tr>
+
+            <tr>
+                <td>TRK-003</td>
+                <td>Ribeirão Preto-SP</td>
+                <td class="ok">Normal</td>
+                <td>8%</td>
+            </tr>
+        </tbody>
+    </table>
+
+</section>
+
+<section class="ia">
+
+    <h2>Decisão da IA</h2>
+
+    <div class="box-ia">
+        <p id="mensagemIA">
+            Nenhum bloqueio necessário no momento.
+        </p>
+
+        <button onclick="analisarRisco()">
+            Simular Análise
+        </button>
+    </div>
+
+</section>
+
+<section class="historico">
+
+    <h2>Histórico de Ocorrências</h2>
+
+    <ul id="historico">
+        <li>✓ TRK-015 liberado após validação da IA.</li>
+        <li>✓ Bloqueio indevido evitado em Campinas.</li>
+        <li>✓ Sensor IoT confirmou rota autorizada.</li>
+    </ul>
+
+</section>
+
+<footer>
+    <p>Projeto Acadêmico • SafeRoute AI • IA + IoT para Logística Inteligente</p>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
