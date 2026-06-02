@@ -1,6 +1,8 @@
-/* =========================
-   DARK MODE
-========================= */
+/* =====================================
+   VETRA AI - SISTEMA INTELIGENTE
+===================================== */
+
+/* DARK MODE */
 
 const themeBtn = document.getElementById("themeBtn");
 
@@ -10,90 +12,126 @@ themeBtn.addEventListener("click", () => {
 
     const icon = themeBtn.querySelector("i");
 
-    if(document.body.classList.contains("dark")){
-        icon.classList.remove("fa-moon");
-        icon.classList.add("fa-sun");
-    }else{
-        icon.classList.remove("fa-sun");
-        icon.classList.add("fa-moon");
+    if (document.body.classList.contains("dark")) {
+        icon.classList.replace("fa-moon", "fa-sun");
+    } else {
+        icon.classList.replace("fa-sun", "fa-moon");
     }
 
 });
 
-/* =========================
-   MAPA LEAFLET
-========================= */
+/* =====================================
+   MAPA OPERACIONAL
+===================================== */
 
-const map = L.map('map').setView([-22.90, -47.06], 8);
+const map = L.map("map").setView([-22.9, -47.06], 7);
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-    attribution:'© OpenStreetMap'
-}).addTo(map);
+L.tileLayer(
+    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    {
+        attribution: "© OpenStreetMap"
+    }
+).addTo(map);
 
-const trucks = [
+const truckData = [
 
     {
-        name:"TRK-001",
-        lat:-22.90,
-        lng:-47.06,
-        risk:"12%"
+        id: "TRK-001",
+        city: "Campinas",
+        risk: 12,
+        lat: -22.90,
+        lng: -47.06
     },
 
     {
-        name:"TRK-002",
-        lat:-23.18,
-        lng:-46.89,
-        risk:"67%"
+        id: "TRK-002",
+        city: "Jundiaí",
+        risk: 44,
+        lat: -23.18,
+        lng: -46.89
     },
 
     {
-        name:"TRK-003",
-        lat:-21.17,
-        lng:-47.81,
-        risk:"8%"
+        id: "TRK-003",
+        city: "Ribeirão Preto",
+        risk: 17,
+        lat: -21.17,
+        lng: -47.81
     },
 
     {
-        name:"TRK-004",
-        lat:-23.50,
-        lng:-47.45,
-        risk:"89%"
+        id: "TRK-004",
+        city: "Sorocaba",
+        risk: 71,
+        lat: -23.50,
+        lng: -47.45
     }
 
 ];
 
-trucks.forEach(truck => {
+truckData.forEach(truck => {
 
-    L.marker([truck.lat, truck.lng])
-    .addTo(map)
-    .bindPopup(`
-        <b>${truck.name}</b><br>
-        Risco IA: ${truck.risk}
+    const marker = L.marker([truck.lat, truck.lng])
+        .addTo(map);
+
+    marker.bindPopup(`
+        <strong>${truck.id}</strong><br>
+        Cidade: ${truck.city}<br>
+        Risco IA: ${truck.risk}%
     `);
 
 });
 
-/* =========================
+/* =====================================
+   KPI ANIMADO
+===================================== */
+
+function animateCounter(id, end) {
+
+    const el = document.getElementById(id);
+
+    let start = 0;
+
+    const timer = setInterval(() => {
+
+        start++;
+
+        el.innerText = start;
+
+        if (start >= end) {
+            clearInterval(timer);
+        }
+
+    }, 15);
+
+}
+
+animateCounter("activeTrucks", 128);
+animateCounter("activeRoutes", 94);
+animateCounter("alerts", 16);
+animateCounter("prevented", 37);
+
+/* =====================================
    IA PREVENTIVA
-========================= */
+===================================== */
 
-const aiMessages = [
+const aiResponses = [
 
-"✅ IA validou a rota. Nenhum bloqueio necessário.",
+    "✅ Rota validada pela IA. Nenhum bloqueio necessário.",
 
-"⚠ Possível divergência de rota detectada. Solicitar confirmação.",
+    "⚠ Divergência detectada entre GPS e rota planejada.",
 
-"🚛 Sensor IoT confirma deslocamento autorizado.",
+    "🚛 Sensores IoT confirmaram deslocamento autorizado.",
 
-"🔎 Análise preventiva concluída. Sem risco operacional.",
+    "🔍 Possível bloqueio indevido identificado.",
 
-"⚠ Desvio de rota identificado. Recomendado monitoramento.",
+    "📡 Comunicação do veículo normalizada.",
 
-"✅ Bloqueio indevido evitado pela IA.",
+    "⚠ Caminhão entrou em área de atenção logística.",
 
-"📡 GPS e telemetria sincronizados com sucesso.",
+    "✅ Bloqueio evitado automaticamente.",
 
-"⚠ Caminhão entrou em área de atenção logística."
+    "🧠 IA analisou comportamento e liberou a carga."
 
 ];
 
@@ -108,79 +146,119 @@ document.getElementById("historyList");
 
 analyzeBtn.addEventListener("click", () => {
 
-    const random =
-    aiMessages[Math.floor(Math.random() * aiMessages.length)];
+    const randomMessage =
 
-    aiMessage.innerHTML = random;
+        aiResponses[
+        Math.floor(
+            Math.random() *
+            aiResponses.length
+        )
+    ];
 
-    const item =
+    aiMessage.innerHTML =
+    randomMessage;
+
+    const li =
     document.createElement("li");
 
-    item.innerHTML =
-    new Date().toLocaleTimeString() +
-    " - " +
-    random;
+    li.innerHTML =
+    `${new Date().toLocaleTimeString()}
+    - ${randomMessage}`;
 
-    historyList.prepend(item);
+    historyList.prepend(li);
 
 });
 
-/* =========================
-   KPI COUNTER
-========================= */
+/* =====================================
+   SIMULAÇÃO DE TELEMETRIA
+===================================== */
 
-function animateValue(id,start,end,duration){
+const truckTable =
+document.getElementById("truckTable");
 
-    let current = start;
+function randomRisk() {
 
-    const range = end - start;
-
-    const increment = range / 100;
-
-    const stepTime = duration / 100;
-
-    const obj =
-    document.getElementById(id);
-
-    const timer =
-    setInterval(() => {
-
-        current += increment;
-
-        obj.innerText =
-        Math.floor(current);
-
-        if(current >= end){
-
-            obj.innerText = end;
-
-            clearInterval(timer);
-
-        }
-
-    },stepTime);
+    return Math.floor(
+        Math.random() * 100
+    );
 
 }
 
-animateValue("activeTrucks",0,128,1500);
-animateValue("activeRoutes",0,94,1500);
-animateValue("alerts",0,16,1500);
-animateValue("prevented",0,37,1500);
+setInterval(() => {
 
-/* =========================
-   CHART 1
-========================= */
+    const rows =
+    truckTable.querySelectorAll("tr");
 
-const monthlyCtx =
+    const randomRow =
+    rows[
+        Math.floor(
+            Math.random() *
+            rows.length
+        )
+    ];
+
+    const risk =
+    randomRisk();
+
+    let status = "Normal";
+    let color = "green";
+
+    if (risk > 60) {
+
+        status = "Análise";
+        color = "orange";
+
+    }
+
+    if (risk > 85) {
+
+        status = "Crítico";
+        color = "red";
+
+    }
+
+    randomRow.children[2].innerHTML =
+    `<span class="status ${color}">
+        ${status}
+    </span>`;
+
+    randomRow.children[3].innerHTML =
+    risk + "%";
+
+}, 5000);
+
+/* =====================================
+   ALERTAS AUTOMÁTICOS
+===================================== */
+
+setInterval(() => {
+
+    const alertCounter =
+    document.getElementById("alerts");
+
+    const current =
+    parseInt(alertCounter.innerText);
+
+    alertCounter.innerText =
+    current +
+    Math.floor(Math.random() * 2);
+
+}, 10000);
+
+/* =====================================
+   GRÁFICO 1
+===================================== */
+
+const monthlyChart =
 document.getElementById("monthlyChart");
 
-new Chart(monthlyCtx,{
+new Chart(monthlyChart, {
 
-    type:"bar",
+    type: "bar",
 
-    data:{
+    data: {
 
-        labels:[
+        labels: [
             "Jan",
             "Fev",
             "Mar",
@@ -189,147 +267,89 @@ new Chart(monthlyCtx,{
             "Jun"
         ],
 
-        datasets:[{
+        datasets: [
 
-            label:"Bloqueios Evitados",
+            {
+                label:
+                "Bloqueios Evitados",
 
-            data:[
-                5,
-                8,
-                11,
-                14,
-                17,
-                22
-            ],
+                data: [
+                    5,
+                    9,
+                    13,
+                    18,
+                    24,
+                    31
+                ],
 
-            backgroundColor:[
-                "#E53935",
-                "#E53935",
-                "#E53935",
-                "#E53935",
-                "#E53935",
-                "#FF6B00"
-            ]
+                backgroundColor:
+                "#ff6b00"
 
-        }]
+            }
+
+        ]
+
+    },
+
+    options: {
+
+        responsive: true
 
     }
 
 });
 
-/* =========================
-   CHART 2
-========================= */
+/* =====================================
+   GRÁFICO 2
+===================================== */
 
-const efficiencyCtx =
+const efficiencyChart =
 document.getElementById("efficiencyChart");
 
-new Chart(efficiencyCtx,{
+new Chart(efficiencyChart, {
 
-    type:"doughnut",
+    type: "doughnut",
 
-    data:{
+    data: {
 
-        labels:[
+        labels: [
+
             "Precisão IA",
+
             "Margem"
+
         ],
 
-        datasets:[{
+        datasets: [
 
-            data:[
-                96,
-                4
-            ],
+            {
 
-            backgroundColor:[
-                "#E53935",
-                "#EEEEEE"
-            ]
+                data: [
 
-        }]
+                    96,
+                    4
+
+                ],
+
+                backgroundColor: [
+
+                    "#ff6b00",
+
+                    "#eeeeee"
+
+                ]
+
+            }
+
+        ]
 
     }
 
 });
 
-/* =========================
-   SIMULAÇÃO IOT
-========================= */
-
-const truckTable =
-document.getElementById("truckTable");
-
-const statuses = [
-
-    "Normal",
-    "Análise",
-    "Crítico"
-
-];
-
-setInterval(() => {
-
-    const rows =
-    truckTable.querySelectorAll("tr");
-
-    const row =
-    rows[Math.floor(Math.random()*rows.length)];
-
-    const risk =
-    Math.floor(Math.random()*100);
-
-    const statusCell =
-    row.children[2];
-
-    const riskCell =
-    row.children[3];
-
-    let status = "Normal";
-    let color = "green";
-
-    if(risk > 60){
-
-        status = "Análise";
-        color = "orange";
-
-    }
-
-    if(risk > 85){
-
-        status = "Crítico";
-        color = "red";
-
-    }
-
-    statusCell.innerHTML =
-    `<span class="status ${color}">
-        ${status}
-    </span>`;
-
-    riskCell.innerText =
-    risk + "%";
-
-},5000);
-
-/* =========================
-   ALERTAS AUTOMÁTICOS
-========================= */
-
-setInterval(() => {
-
-    const alerts =
-    document.getElementById("alerts");
-
-    alerts.innerText =
-    parseInt(alerts.innerText) +
-    Math.floor(Math.random()*2);
-
-},10000);
-
-/* =========================
-   EXPORTAR PDF
-========================= */
+/* =====================================
+   EXPORTAR RELATÓRIO
+===================================== */
 
 const pdfBtn =
 document.getElementById("pdfBtn");
@@ -340,17 +360,17 @@ pdfBtn.addEventListener("click", () => {
 
 });
 
-/* =========================
+/* =====================================
    RELÓGIO OPERACIONAL
-========================= */
+===================================== */
 
 const footer =
 document.querySelector("footer");
 
 const clock =
-document.createElement("p");
+document.createElement("div");
 
-clock.style.marginTop = "15px";
+clock.classList.add("clock");
 
 footer.appendChild(clock);
 
@@ -360,46 +380,70 @@ setInterval(() => {
     new Date();
 
     clock.innerHTML =
-    "Sistema Online • " +
-    now.toLocaleTimeString();
+    `Sistema Online • ${now.toLocaleTimeString()}`;
 
-},1000);
+}, 1000);
 
-/* =========================
-   INDICADOR IOT
-========================= */
+/* =====================================
+   INDICADOR IoT
+===================================== */
 
 const navbar =
 document.querySelector(".navbar");
 
-const indicator =
+const iotStatus =
 document.createElement("div");
 
-indicator.innerHTML =
+iotStatus.classList.add("iot-indicator");
+
+iotStatus.innerHTML =
 "🟢 IoT Online";
 
-indicator.style.fontWeight = "bold";
-indicator.style.color = "#2ecc71";
+navbar.appendChild(iotStatus);
 
-navbar.appendChild(indicator);
-
-/* =========================
-   NOTIFICAÇÕES
-========================= */
+/* =====================================
+   NOTIFICAÇÕES AUTOMÁTICAS
+===================================== */
 
 setInterval(() => {
 
     const random =
-    aiMessages[
+    aiResponses[
         Math.floor(
             Math.random() *
-            aiMessages.length
+            aiResponses.length
         )
     ];
 
     console.log(
-        "Vetra AI:",
+        "VETRA AI:",
         random
     );
 
-},15000);
+}, 15000);
+
+/* =====================================
+   EFEITO SCROLL
+===================================== */
+
+const revealElements =
+document.querySelectorAll(
+    ".card, .tech-card, .chart-card, .ai-card"
+);
+
+window.addEventListener("scroll", () => {
+
+    revealElements.forEach(el => {
+
+        const position =
+        el.getBoundingClientRect().top;
+
+        if (position < window.innerHeight - 100) {
+
+            el.classList.add("show");
+
+        }
+
+    });
+
+});
