@@ -1,383 +1,108 @@
-/* ====================================
-   RESET
-==================================== */
-
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:'Segoe UI',sans-serif;
-    scroll-behavior:smooth;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 body{
     background:#f4f7fb;
-    color:#222;
-    overflow-x:hidden;
 }
 
-/* ====================================
-   VARIÁVEIS VETRA
-==================================== */
-
-:root{
-
-    --primary:#d81f38;
-    --secondary:#ff7a00;
-
-    --dark:#111827;
-    --light:#ffffff;
-
-    --gray:#6b7280;
-    --border:#e5e7eb;
-
-    --success:#22c55e;
-    --danger:#ef4444;
-
-    --shadow:
-    0 10px 30px rgba(0,0,0,.08);
-
+header{
+    background:#0b3d91;
+    color:white;
+    text-align:center;
+    padding:25px;
 }
 
-/* ====================================
-   DARK MODE
-==================================== */
-
-.dark{
-
-    --light:#111827;
-    --dark:#ffffff;
-    --border:#1f2937;
-
+.dashboard{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    padding:25px;
 }
 
-.dark body{
-    background:#0f172a;
+.card{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+    text-align:center;
 }
 
-/* ====================================
-   NAVBAR
-==================================== */
+.card span{
+    display:block;
+    margin-top:10px;
+    font-size:2rem;
+    color:#0b3d91;
+    font-weight:bold;
+}
 
-.navbar{
+.monitoramento,
+.ia,
+.historico{
+    margin:25px;
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
 
-    position:fixed;
-    top:0;
-    left:0;
-
+table{
     width:100%;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    padding:18px 6%;
-
-    backdrop-filter:blur(15px);
-
-    background:
-    rgba(255,255,255,.85);
-
-    border-bottom:
-    1px solid rgba(255,255,255,.2);
-
-    z-index:999;
-
+    border-collapse:collapse;
 }
 
-.logo-container{
-
-    display:flex;
-    align-items:center;
-    gap:15px;
-
-}
-
-.logo-container img{
-
-    width:60px;
-
-}
-
-.logo-container h2{
-
-    color:var(--primary);
-
-}
-
-.logo-container span{
-
-    color:var(--gray);
-    font-size:.85rem;
-
-}
-
-.menu{
-
-    display:flex;
-    gap:35px;
-
-    list-style:none;
-
-}
-
-.menu a{
-
-    text-decoration:none;
-    color:var(--dark);
-
-    font-weight:600;
-
-    transition:.3s;
-
-}
-
-.menu a:hover{
-
-    color:var(--secondary);
-
-}
-
-.nav-actions{
-
-    display:flex;
-    align-items:center;
-    gap:15px;
-
-}
-
-#themeBtn{
-
-    width:45px;
-    height:45px;
-
-    border:none;
-
-    border-radius:50%;
-
-    cursor:pointer;
-
-    background:white;
-
-    box-shadow:var(--shadow);
-
-}
-
-.demo-btn{
-
-    border:none;
-
-    padding:12px 22px;
-
-    border-radius:12px;
-
-    cursor:pointer;
-
-    color:white;
-
-    font-weight:600;
-
-    background:
-    linear-gradient(
-        135deg,
-        var(--primary),
-        var(--secondary)
-    );
-
-}
-
-/* ====================================
-   HERO
-==================================== */
-
-.hero{
-
-    min-height:100vh;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    padding:120px 8% 80px;
-
-    background:
-    linear-gradient(
-        135deg,
-        #fff5f5,
-        #fff8ef
-    );
-
-}
-
-.hero-content{
-
-    max-width:700px;
-
-}
-
-.hero-badge{
-
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-
-    padding:12px 18px;
-
-    border-radius:30px;
-
-    background:white;
-
-    box-shadow:var(--shadow);
-
-    margin-bottom:25px;
-
-    color:var(--primary);
-
-    font-weight:600;
-
-}
-
-.hero h1{
-
-    font-size:4rem;
-
-    line-height:1.1;
-
-    color:var(--dark);
-
-    margin-bottom:25px;
-
-}
-
-.hero p{
-
-    font-size:1.15rem;
-
-    line-height:1.8;
-
-    color:var(--gray);
-
-    margin-bottom:35px;
-
-}
-
-.hero-buttons{
-
-    display:flex;
-    gap:15px;
-
-    flex-wrap:wrap;
-
-}
-
-.btn-primary{
-
-    padding:15px 30px;
-
-    border:none;
-
-    border-radius:14px;
-
-    cursor:pointer;
-
-    color:white;
-
-    font-weight:bold;
-
-    background:
-    linear-gradient(
-        135deg,
-        var(--primary),
-        var(--secondary)
-    );
-
-}
-
-.btn-secondary{
-
-    padding:15px 30px;
-
-    border:2px solid var(--primary);
-
-    background:white;
-
-    color:var(--primary);
-
-    border-radius:14px;
-
-    cursor:pointer;
-
-}
-
-/* ====================================
-   CARD FLUTUANTE
-==================================== */
-
-.hero-visual{
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-}
-
-.floating-card{
-
-    width:320px;
-
-    padding:30px;
-
-    background:white;
-
-    border-radius:25px;
-
-    box-shadow:var(--shadow);
-
-    animation:float 3s ease-in-out infinite;
-
-}
-
-.online{
-
-    color:var(--success);
-
-    font-weight:bold;
-
-}
-
-.mini-kpi{
-
-    margin-top:20px;
-
-    display:flex;
-    justify-content:space-between;
-
+table th,
+table td{
+    border-bottom:1px solid #ddd;
     padding:15px;
-
-    border-radius:12px;
-
-    background:#f9fafb;
-
+    text-align:left;
 }
 
-.mini-kpi strong{
-
-    color:var(--secondary);
-
+.ok{
+    color:green;
+    font-weight:bold;
 }
 
-@keyframes float{
+.alerta{
+    color:orange;
+    font-weight:bold;
+}
 
-    0%{
-        transform:translateY(0px);
-    }
+.box-ia{
+    text-align:center;
+}
 
-    50%{
-        transform:translateY(-12px);
-    }
+button{
+    margin-top:20px;
+    background:#0b3d91;
+    color:white;
+    border:none;
+    padding:12px 25px;
+    border-radius:8px;
+    cursor:pointer;
+}
 
-    100%{
-        transform:translateY(0px);
-    }
+button:hover{
+    background:#072f72;
+}
 
+#mensagemIA{
+    font-size:1.2rem;
+}
+
+ul{
+    margin-top:15px;
+}
+
+li{
+    margin-bottom:10px;
+}
+
+footer{
+    text-align:center;
+    padding:20px;
+    color:#666;
 }
