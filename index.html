@@ -1,525 +1,115 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>VETRA | Transporte Inteligente com IA e IoT</title>
-
+    <title>SafeRoute AI</title>
     <link rel="stylesheet" href="style.css">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <!-- Leaflet -->
-    <link rel="stylesheet"
-        href="https://unpkg.com/leaflet/dist/leaflet.css">
-
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
 </head>
-
 <body>
 
-    <!-- NAVBAR -->
-
-    <nav class="navbar">
-
-        <div class="logo-container">
-
-            <img src="assets/logo.png" alt="VETRA">
-
-            <div>
-                <h2>VETRA</h2>
-                <span>Transporte Inteligente</span>
-            </div>
-
-        </div>
-
-        <ul class="menu">
-
-            <li><a href="#inicio">Início</a></li>
-            <li><a href="#dashboard">Dashboard</a></li>
-            <li><a href="#simulador">Simulador</a></li>
-            <li><a href="#ia">IA Preventiva</a></li>
-            <li><a href="#integracoes">Integrações</a></li>
-            <li><a href="#canvas">MVP</a></li>
-
-        </ul>
-
-        <div class="nav-actions">
-
-            <button id="themeBtn">
-                <i class="fa-solid fa-moon"></i>
-            </button>
-
-            <button class="demo-btn">
-                Solicitar Demonstração
-            </button>
-
-        </div>
-
-    </nav>
-
-    <!-- HERO -->
-
-    <section id="inicio" class="hero">
-
-        <div class="hero-content">
-
-            <div class="hero-badge">
-
-                <i class="fa-solid fa-brain"></i>
-
-                IA + IoT Aplicados à Logística
-
-            </div>
-
-            <h1>
-
-                Evite Bloqueios Indevidos
-                Antes Que Eles Aconteçam
-
-            </h1>
-
-            <p>
-
-                A VETRA utiliza Inteligência Artificial,
-                IoT e monitoramento inteligente para
-                validar situações suspeitas em tempo real,
-                reduzindo bloqueios incorretos e aumentando
-                a eficiência operacional das transportadoras.
-
-            </p>
-
-            <div class="hero-buttons">
-
-                <button class="btn-primary">
-                    Conhecer Plataforma
-                </button>
-
-                <button class="btn-secondary">
-                    Ver MVP
-                </button>
-
-            </div>
-
-        </div>
-
-        <div class="hero-visual">
-
-            <div class="floating-card">
-
-                <h3>Status Operacional</h3>
-
-                <span class="online">
-                    🟢 Sistema Online
-                </span>
-
-                <div class="mini-kpi">
-                    Precisão IA
-                    <strong>96%</strong>
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- KPIS -->
-
-    <section id="dashboard" class="dashboard">
-
-        <div class="card">
-            <i class="fa-solid fa-truck-fast"></i>
-            <h3>Caminhões Monitorados</h3>
-            <span id="activeTrucks">0</span>
-        </div>
-
-        <div class="card">
-            <i class="fa-solid fa-route"></i>
-            <h3>Rotas Ativas</h3>
-            <span id="activeRoutes">0</span>
-        </div>
-
-        <div class="card">
-            <i class="fa-solid fa-triangle-exclamation"></i>
-            <h3>Alertas Inteligentes</h3>
-            <span id="alerts">0</span>
-        </div>
-
-        <div class="card">
-            <i class="fa-solid fa-shield-halved"></i>
-            <h3>Bloqueios Evitados</h3>
-            <span id="prevented">0</span>
-        </div>
-
-    </section>
-
-    <!-- PROBLEMA -->
-
-    <section class="problem-section">
-
-        <div class="section-title">
-            <h2>O Problema</h2>
-        </div>
-
-        <div class="comparison">
-
-            <div class="comparison-card negative">
-
-                <h3>Sem VETRA</h3>
-
-                <ul>
-                    <li>❌ Bloqueios automáticos incorretos</li>
-                    <li>❌ Atrasos na entrega</li>
-                    <li>❌ Custos operacionais elevados</li>
-                    <li>❌ Baixa confiabilidade do sistema</li>
-                </ul>
-
-            </div>
-
-            <div class="comparison-card positive">
-
-                <h3>Com VETRA</h3>
-
-                <ul>
-                    <li>✅ IA valida contexto da rota</li>
-                    <li>✅ Monitoramento IoT contínuo</li>
-                    <li>✅ Redução de bloqueios indevidos</li>
-                    <li>✅ Mais eficiência operacional</li>
-                </ul>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- SIMULADOR -->
-
-    <section id="simulador" class="section">
-
-        <div class="section-title">
-            <h2>Simulador de Bloqueio Indevido</h2>
-        </div>
-
-        <div class="simulator">
-
-            <div class="scenario">
-
-                <h3>Sem VETRA</h3>
-
-                <div class="scenario-box danger">
-
-                    <p>Caminhão desviou 300m da rota.</p>
-
-                    <h4>🚫 BLOQUEIO AUTOMÁTICO</h4>
-
-                    <span>Prejuízo: R$ 3.200</span>
-
-                </div>
-
-            </div>
-
-            <div class="scenario">
-
-                <h3>Com VETRA</h3>
-
-                <div class="scenario-box success">
-
-                    <p>IA validou telemetria e GPS.</p>
-
-                    <h4>✅ ROTA LIBERADA</h4>
-
-                    <span>Operação continua normalmente.</span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- IA -->
-
-    <section id="ia" class="section">
-
-        <div class="section-title">
-            <h2>Centro de IA Preventiva</h2>
-        </div>
-
-        <div class="ai-panel">
-
-            <h3>Análise Inteligente</h3>
-
-            <p id="aiMessage">
-
-                Nenhum risco operacional detectado.
-
-            </p>
-
-            <button id="analyzeBtn">
-
-                Executar Nova Análise
-
-            </button>
-
-        </div>
-
-    </section>
-
-    <!-- MAPA -->
-
-    <section class="section">
-
-        <div class="section-title">
-            <h2>Mapa Operacional</h2>
-        </div>
-
-        <div id="map"></div>
-
-    </section>
-
-    <!-- GRAFICOS -->
-
-    <section class="section">
-
-        <div class="section-title">
-            <h2>Indicadores Estratégicos</h2>
-        </div>
-
-        <div class="charts">
-
-            <div class="chart-card">
-                <canvas id="monthlyChart"></canvas>
-            </div>
-
-            <div class="chart-card">
-                <canvas id="efficiencyChart"></canvas>
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- INTEGRACOES -->
-
-    <section id="integracoes" class="section">
-
-        <div class="section-title">
-            <h2>Integrações Estratégicas</h2>
-        </div>
-
-        <div class="integration-grid">
-
-            <div class="integration-card">
-
-                <i class="fa-solid fa-satellite"></i>
-
-                <h3>Ituran</h3>
-
-                <p>
-                    Rastreamento inteligente,
-                    monitoramento e gestão de risco.
-                </p>
-
-            </div>
-
-            <div class="integration-card">
-
-                <i class="fa-solid fa-microchip"></i>
-
-                <h3>Sascar</h3>
-
-                <p>
-                    Telemetria avançada para alimentar
-                    os modelos de IA da VETRA.
-                </p>
-
-            </div>
-
-            <div class="integration-card">
-
-                <i class="fa-solid fa-network-wired"></i>
-
-                <h3>Omnilink</h3>
-
-                <p>
-                    Integração de dados logísticos
-                    e monitoramento operacional.
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- MATRIZ GUT -->
-
-    <section class="section">
-
-        <div class="section-title">
-            <h2>Matriz GUT</h2>
-        </div>
-
-        <div class="gut-table">
-
-            <div class="gut-row high">
-                IA para evitar bloqueios indevidos — 125 pontos
-            </div>
-
-            <div class="gut-row high">
-                Monitoramento IoT — 100 pontos
-            </div>
-
-            <div class="gut-row medium">
-                Integrações externas — 64 pontos
-            </div>
-
-            <div class="gut-row medium">
-                Painel Inteligente — 48 pontos
-            </div>
-
-            <div class="gut-row low">
-                Comunicação automática — 36 pontos
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- MVP -->
-
-    <section id="canvas" class="section">
-
-        <div class="section-title">
-            <h2>MVP - Business Model Canvas</h2>
-        </div>
-
-        <div class="canvas-grid">
-
-            <div class="canvas-card">
-                <h3>Problema</h3>
-                <p>Bloqueios indevidos durante o transporte.</p>
-            </div>
-
-            <div class="canvas-card">
-                <h3>Solução</h3>
-                <p>IA + IoT validando riscos em tempo real.</p>
-            </div>
-
-            <div class="canvas-card">
-                <h3>Público-Alvo</h3>
-                <p>Transportadoras e empresas de logística.</p>
-            </div>
-
-            <div class="canvas-card">
-                <h3>Benefícios</h3>
-                <p>Redução de custos e aumento da eficiência.</p>
-            </div>
-
-            <div class="canvas-card">
-                <h3>Recursos</h3>
-                <p>Telemetria, IA, GPS e sensores IoT.</p>
-            </div>
-
-            <div class="canvas-card">
-                <h3>Impactos</h3>
-                <p>Mais segurança, produtividade e confiabilidade.</p>
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- TIMELINE -->
-
-    <section class="section">
-
-        <div class="section-title">
-            <h2>Roadmap da VETRA</h2>
-        </div>
-
-        <div class="timeline">
-
-            <div class="timeline-item">
-                <h3>2025</h3>
-                <p>MVP da Plataforma</p>
-            </div>
-
-            <div class="timeline-item">
-                <h3>2026</h3>
-                <p>Integração IoT</p>
-            </div>
-
-            <div class="timeline-item">
-                <h3>2027</h3>
-                <p>IA Preditiva</p>
-            </div>
-
-            <div class="timeline-item">
-                <h3>2028</h3>
-                <p>Expansão Nacional</p>
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- HISTORICO -->
-
-    <section class="section">
-
-        <div class="section-title">
-            <h2>Histórico de Eventos</h2>
-        </div>
-
-        <div class="history-card">
-
-            <ul id="historyList">
-
-                <li>IA evitou bloqueio indevido na BR-381.</li>
-
-                <li>Sensor IoT validou deslocamento autorizado.</li>
-
-                <li>Caminhão liberado automaticamente.</li>
-
-            </ul>
-
-        </div>
-
-    </section>
-
-    <!-- FOOTER -->
-
-    <footer>
-
-        <img src="assets/logo.png" alt="VETRA">
-
-        <h3>VETRA</h3>
-
-        <p>
-            Inteligência Artificial e IoT na evolução
-            do transporte inteligente.
+<header>
+    <h1>🚛 SafeRoute AI</h1>
+    <p>Prevenção Inteligente de Bloqueios Indevidos</p>
+</header>
+
+<section class="dashboard">
+
+    <div class="card">
+        <h2>Caminhões em Operação</h2>
+        <span id="caminhoes">128</span>
+    </div>
+
+    <div class="card">
+        <h2>Rotas Monitoradas</h2>
+        <span id="rotas">94</span>
+    </div>
+
+    <div class="card">
+        <h2>Bloqueios Evitados</h2>
+        <span id="evitados">37</span>
+    </div>
+
+    <div class="card">
+        <h2>Precisão da IA</h2>
+        <span>96%</span>
+    </div>
+
+</section>
+
+<section class="monitoramento">
+
+    <h2>Monitoramento em Tempo Real</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Caminhão</th>
+                <th>Localização</th>
+                <th>Status</th>
+                <th>Risco IA</th>
+            </tr>
+        </thead>
+
+        <tbody id="tabelaCaminhoes">
+            <tr>
+                <td>TRK-001</td>
+                <td>Campinas-SP</td>
+                <td class="ok">Normal</td>
+                <td>12%</td>
+            </tr>
+
+            <tr>
+                <td>TRK-002</td>
+                <td>Jundiaí-SP</td>
+                <td class="alerta">Análise</td>
+                <td>67%</td>
+            </tr>
+
+            <tr>
+                <td>TRK-003</td>
+                <td>Ribeirão Preto-SP</td>
+                <td class="ok">Normal</td>
+                <td>8%</td>
+            </tr>
+        </tbody>
+    </table>
+
+</section>
+
+<section class="ia">
+
+    <h2>Decisão da IA</h2>
+
+    <div class="box-ia">
+        <p id="mensagemIA">
+            Nenhum bloqueio necessário no momento.
         </p>
 
-        <small>
-            © 2026 VETRA - Todos os direitos reservados.
-        </small>
+        <button onclick="analisarRisco()">
+            Simular Análise
+        </button>
+    </div>
 
-    </footer>
+</section>
 
-    <script src="script.js"></script>
+<section class="historico">
+
+    <h2>Histórico de Ocorrências</h2>
+
+    <ul id="historico">
+        <li>✓ TRK-015 liberado após validação da IA.</li>
+        <li>✓ Bloqueio indevido evitado em Campinas.</li>
+        <li>✓ Sensor IoT confirmou rota autorizada.</li>
+    </ul>
+
+</section>
+
+<footer>
+    <p>Projeto Acadêmico • SafeRoute AI • IA + IoT para Logística Inteligente</p>
+</footer>
+
+<script src="script.js"></script>
 
 </body>
 </html>
