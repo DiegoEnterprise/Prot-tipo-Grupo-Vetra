@@ -1,115 +1,366 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SafeRoute AI</title>
+
+    <title>Vetra AI | Transporte Inteligente</title>
+
     <link rel="stylesheet" href="style.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Leaflet -->
+    <link rel="stylesheet"
+        href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
+
 <body>
 
-<header>
-    <h1>🚛 SafeRoute AI</h1>
-    <p>Prevenção Inteligente de Bloqueios Indevidos</p>
-</header>
+    <!-- NAVBAR -->
 
-<section class="dashboard">
+    <nav class="navbar">
 
-    <div class="card">
-        <h2>Caminhões em Operação</h2>
-        <span id="caminhoes">128</span>
-    </div>
+        <div class="logo">
+            <i class="fa-solid fa-truck-fast"></i>
+            <span>Vetra AI</span>
+        </div>
 
-    <div class="card">
-        <h2>Rotas Monitoradas</h2>
-        <span id="rotas">94</span>
-    </div>
+        <ul class="menu">
+            <li><a href="#dashboard">Dashboard</a></li>
+            <li><a href="#monitoramento">Monitoramento</a></li>
+            <li><a href="#mapa">Mapa</a></li>
+            <li><a href="#ia">IA Preventiva</a></li>
+            <li><a href="#relatorios">Relatórios</a></li>
+        </ul>
 
-    <div class="card">
-        <h2>Bloqueios Evitados</h2>
-        <span id="evitados">37</span>
-    </div>
+        <div class="nav-actions">
 
-    <div class="card">
-        <h2>Precisão da IA</h2>
-        <span>96%</span>
-    </div>
+            <button id="themeBtn">
+                <i class="fa-solid fa-moon"></i>
+            </button>
 
-</section>
+            <button class="login-btn">
+                Entrar
+            </button>
 
-<section class="monitoramento">
+        </div>
 
-    <h2>Monitoramento em Tempo Real</h2>
+    </nav>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Caminhão</th>
-                <th>Localização</th>
-                <th>Status</th>
-                <th>Risco IA</th>
-            </tr>
-        </thead>
+    <!-- HERO -->
 
-        <tbody id="tabelaCaminhoes">
-            <tr>
-                <td>TRK-001</td>
-                <td>Campinas-SP</td>
-                <td class="ok">Normal</td>
-                <td>12%</td>
-            </tr>
+    <section class="hero">
 
-            <tr>
-                <td>TRK-002</td>
-                <td>Jundiaí-SP</td>
-                <td class="alerta">Análise</td>
-                <td>67%</td>
-            </tr>
+        <div class="hero-content">
 
-            <tr>
-                <td>TRK-003</td>
-                <td>Ribeirão Preto-SP</td>
-                <td class="ok">Normal</td>
-                <td>8%</td>
-            </tr>
-        </tbody>
-    </table>
+            <h1>
+                Evite Bloqueios Indevidos Antes Que Eles Aconteçam
+            </h1>
 
-</section>
+            <p>
+                Plataforma inteligente baseada em IA e IoT para
+                monitoramento de rotas, prevenção de travamentos
+                indevidos e aumento da eficiência logística.
+            </p>
 
-<section class="ia">
+            <div class="hero-buttons">
 
-    <h2>Decisão da IA</h2>
+                <button class="btn-primary">
+                    Ver Dashboard
+                </button>
 
-    <div class="box-ia">
-        <p id="mensagemIA">
-            Nenhum bloqueio necessário no momento.
+                <button class="btn-secondary">
+                    Solicitar Demonstração
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- KPIs -->
+
+    <section id="dashboard" class="dashboard">
+
+        <div class="card">
+            <i class="fa-solid fa-truck"></i>
+            <h3>Caminhões Ativos</h3>
+            <span id="activeTrucks">128</span>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-route"></i>
+            <h3>Rotas Monitoradas</h3>
+            <span id="activeRoutes">94</span>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <h3>Alertas Detectados</h3>
+            <span id="alerts">16</span>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-shield"></i>
+            <h3>Bloqueios Evitados</h3>
+            <span id="prevented">37</span>
+        </div>
+
+    </section>
+
+    <!-- MONITORAMENTO -->
+
+    <section id="monitoramento" class="section">
+
+        <div class="section-title">
+            <h2>Monitoramento em Tempo Real</h2>
+        </div>
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Caminhão</th>
+                        <th>Localização</th>
+                        <th>Status</th>
+                        <th>Risco IA</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="truckTable">
+
+                    <tr>
+                        <td>TRK-001</td>
+                        <td>Campinas - SP</td>
+                        <td><span class="status green">Normal</span></td>
+                        <td>12%</td>
+                    </tr>
+
+                    <tr>
+                        <td>TRK-002</td>
+                        <td>Jundiaí - SP</td>
+                        <td><span class="status orange">Análise</span></td>
+                        <td>67%</td>
+                    </tr>
+
+                    <tr>
+                        <td>TRK-003</td>
+                        <td>Ribeirão Preto - SP</td>
+                        <td><span class="status green">Normal</span></td>
+                        <td>8%</td>
+                    </tr>
+
+                    <tr>
+                        <td>TRK-004</td>
+                        <td>Sorocaba - SP</td>
+                        <td><span class="status red">Crítico</span></td>
+                        <td>89%</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+    <!-- MAPA -->
+
+    <section id="mapa" class="section">
+
+        <div class="section-title">
+            <h2>Mapa Operacional</h2>
+        </div>
+
+        <div id="map"></div>
+
+    </section>
+
+    <!-- IA -->
+
+    <section id="ia" class="section">
+
+        <div class="section-title">
+            <h2>IA Preventiva</h2>
+        </div>
+
+        <div class="ai-container">
+
+            <div class="ai-card">
+
+                <h3>Análise Inteligente</h3>
+
+                <p id="aiMessage">
+                    Nenhum risco detectado no momento.
+                </p>
+
+                <button id="analyzeBtn">
+                    Executar Nova Análise
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- GRÁFICOS -->
+
+    <section class="section">
+
+        <div class="section-title">
+            <h2>Indicadores Estratégicos</h2>
+        </div>
+
+        <div class="charts">
+
+            <div class="chart-card">
+                <canvas id="monthlyChart"></canvas>
+            </div>
+
+            <div class="chart-card">
+                <canvas id="efficiencyChart"></canvas>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- HISTÓRICO -->
+
+    <section class="section">
+
+        <div class="section-title">
+            <h2>Histórico de Ocorrências</h2>
+        </div>
+
+        <div class="history-card">
+
+            <ul id="historyList">
+
+                <li>
+                    IA evitou bloqueio indevido na BR-381.
+                </li>
+
+                <li>
+                    Sensor IoT validou rota autorizada.
+                </li>
+
+                <li>
+                    Caminhão TRK-015 liberado automaticamente.
+                </li>
+
+            </ul>
+
+        </div>
+
+    </section>
+
+    <!-- TECNOLOGIAS -->
+
+    <section class="section">
+
+        <div class="section-title">
+            <h2>Tecnologias Utilizadas</h2>
+        </div>
+
+        <div class="tech-grid">
+
+            <div class="tech-card">
+
+                <i class="fa-solid fa-brain"></i>
+
+                <h3>Inteligência Artificial</h3>
+
+                <p>
+                    Machine Learning para prevenção de bloqueios indevidos.
+                </p>
+
+            </div>
+
+            <div class="tech-card">
+
+                <i class="fa-solid fa-microchip"></i>
+
+                <h3>IoT</h3>
+
+                <p>
+                    Sensores conectados monitorando caminhões em tempo real.
+                </p>
+
+            </div>
+
+            <div class="tech-card">
+
+                <i class="fa-solid fa-cloud"></i>
+
+                <h3>Integração</h3>
+
+                <p>
+                    Comunicação contínua entre central, motorista e sistema.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- RELATÓRIOS -->
+
+    <section id="relatorios" class="section">
+
+        <div class="section-title">
+            <h2>Relatórios</h2>
+        </div>
+
+        <div class="report-card">
+
+            <p>
+                Gere relatórios completos de desempenho logístico.
+            </p>
+
+            <button id="pdfBtn">
+                Exportar PDF
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <h3>Vetra AI</h3>
+
+        <p>
+            Inteligência que mantém sua carga em movimento.
         </p>
 
-        <button onclick="analisarRisco()">
-            Simular Análise
-        </button>
-    </div>
+        <small>
+            © 2025 Vetra AI - Todos os direitos reservados.
+        </small>
 
-</section>
+    </footer>
 
-<section class="historico">
-
-    <h2>Histórico de Ocorrências</h2>
-
-    <ul id="historico">
-        <li>✓ TRK-015 liberado após validação da IA.</li>
-        <li>✓ Bloqueio indevido evitado em Campinas.</li>
-        <li>✓ Sensor IoT confirmou rota autorizada.</li>
-    </ul>
-
-</section>
-
-<footer>
-    <p>Projeto Acadêmico • SafeRoute AI • IA + IoT para Logística Inteligente</p>
-</footer>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 
 </body>
+
 </html>
